@@ -6,7 +6,7 @@ export const initialState = {
     token: localStorage.getItem('token'),
     isLoggedin: false,
     isLoggedPending: false,
-    loginError: null
+    loginError: null,
 }
 // export const ContextProvider = props =>{
 //     const [isLoggedinPending,setLoginPending] = useState(false)
