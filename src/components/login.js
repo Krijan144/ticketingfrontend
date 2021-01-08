@@ -1,8 +1,18 @@
 import React,{Component} from 'react';
 import axios from 'axios'
-import AuthContext from '../contextapi/authContext'
+import {AuthContext} from '../contextapi/authContext'
+import { useAccordionToggle } from 'react-bootstrap';
+
+// const { state: ContextState, login } = useContext(AuthContext);
+// const {
+//   isLoginPending,
+//   isLoggedIn,
+//   loginError
+// } = ContextState;
+// const [state, setState] = useSetState(initialState);
 
 class login extends Component{
+    static contextType=AuthContext
     constructor(props){
         super(props);
         this.state = {
@@ -10,10 +20,10 @@ class login extends Component{
             password: ""
         }
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+     //   this.handleChange = this.handleChange.bind(this);
+      //  this.handleSubmit = this.handleSubmit.bind(this);
     }
-        handleSubmit(event){
+        handleSubmit = (event) =>{
             event.preventDefault();
             axios({
                 url:"http://localhost:8000/users/login/",
@@ -22,18 +32,24 @@ class login extends Component{
                 headers:{
                     "Content-Type":"application/json"
                 }
-            }).then(response=>{
-                console.log(response)
+            }).then(
+                
+                response=>{
+                    const { token,user } = response.data
+                    localStorage.setItem("token", token)
+                    localStorage.setItem("user", JSON.stringify(user));
+                    console.log(response)
             }).catch(err=>{
                 console.log(err)
             })
 
         }
-        handleChange(event){
+        handleChange = (event) => {
             this.setState({[event.target.getAttribute("name")]:event.target.value});
         }
 
     render(){
+        console.log(this.context)
         return(
             <div className="container">
             <form onSubmit={this.handleSubmit}>

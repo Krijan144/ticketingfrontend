@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import axios from "axios";
 import querylist from "./querylist";
+import { AuthContext } from "../contextapi/authContext";
 
 class queryform extends Component {
+  static contextType = AuthContext
     constructor(props){
         super(props);
         this.state ={
           query1:[],
           formData: {
             ellaborate: "",
-            query: ""
+            query: "",
           },
       };
 
@@ -46,14 +48,16 @@ class queryform extends Component {
   // }
     handleSubmit(event){
         event.preventDefault();
-        
+        const token = localStorage.getItem.token
         console.log(this.state);
         axios({
+            
             url:"http://localhost:8000/api/query/",
             method:"POST",
             data:this.state.formData,
             headers:{
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                "Authorization": `Bearer ${token}`
             }
         }).then(response=>{
                 console.log(response)
@@ -64,6 +68,9 @@ class queryform extends Component {
         }
         
   render() {
+    console.log(this.context)
+    //const {name} = this.context;
+    //console.log(name)
     return (
       <div className="container">
         <h2>Submit Your Query</h2>
