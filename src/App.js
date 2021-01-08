@@ -12,12 +12,12 @@ import dropdown from './components/dropdown'
 import register from './components/register'
 import Nav2 from './components/header2'
 
-import {AuthContext, initialState} from "./contextapi/authContext";
+import {AuthProvider} from "./contextapi/authContext";
 
 class App extends Component{
   render(){
     return(
-      <AuthContext.Provider value={initialState}>
+      <AuthProvider>
         <BrowserRouter>
         
           <Nav1 />
@@ -39,7 +39,7 @@ class App extends Component{
            </Switch> */}
 
         </BrowserRouter>
-      </AuthContext.Provider>
+      </AuthProvider>
     
     );
   }

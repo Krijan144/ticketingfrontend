@@ -8,7 +8,6 @@ class postanswer extends Component{
         this.state={
             answered_by:"",
             answer:"",
-            query:this.props.match.params.id
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
