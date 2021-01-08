@@ -33,8 +33,6 @@ class login extends Component{
             this.setState({[event.target.getAttribute("name")]:event.target.value});
         }
 
-
-
     render(){
         return(
             <div className="container">
