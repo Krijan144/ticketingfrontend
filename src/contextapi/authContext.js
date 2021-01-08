@@ -1,4 +1,4 @@
-import React,{Component,useState}  from 'react';
+import React, { Component, useState } from 'react';
 
 export const AuthContext = React.createContext(null);
 
@@ -17,7 +17,7 @@ export const initialState = {
 //         setLoginPending(true),
 //         setLoggedIn(false),
 //         isLoggedinError(null)
-        
+
 
 //         if (!error){
 //             setLoggedIn(true)
