@@ -67,7 +67,7 @@ class queryform extends Component {
   render() {
     return (
       <div className="container p-5 col-5 offset-md-4">
-        <h2>Submit Your Query</h2>
+        {/* <h2>Submit Your Query</h2>
         <label>
           <select onChange={(event) => this.setState((prev) => ({ formData: { ...prev.formData, query: event.target.value } }))}>
             {this.state.query1.map(querylist => <option id={querylist.id}>{querylist.query}</option>)}
@@ -87,9 +87,9 @@ class queryform extends Component {
           </label>
           <br />
           <input type="submit" value="Submit" className="btn-primary" />
-        </form>
-
+        </form> */}
         <Form>
+          <h3>SUBMIT YOUR QUERIES</h3>
           <Form.Group controlId="exampleForm.ControlSelect1">
             <Form.Label>Example select</Form.Label>
             <Form.Control as="select">
@@ -112,6 +112,7 @@ class queryform extends Component {
           <Button variant="primary">Submit</Button>
         </Form>
       </div>
+
     );
   }
 }
