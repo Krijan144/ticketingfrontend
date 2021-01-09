@@ -8,7 +8,8 @@ class register extends Component{
             fullname:"",
             email:"",
             password: "",
-            passwordCheck:""
+            passwordCheck:"",
+            role:""
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -47,9 +48,11 @@ class register extends Component{
                     <input type ="text" name="fullname" value={this.state.fullname} onChange={this.handleChange}/><br/>
                     
                     Password:<br/>
-                    <input type ="text" name="password" value={this.state.password} onChange={this.handleChange}/><br/>
+                    <input type ="password" name="password" value={this.state.password} onChange={this.handleChange}/><br/>
                     Confirm Password:<br/>
-                    <input type ="text" name="passwordCheck" value={this.state.passwordCheck} onChange={this.handleChange}/><br/>
+                    <input type ="password" name="passwordCheck" value={this.state.passwordCheck} onChange={this.handleChange}/><br/>
+                    Role:<br/>
+                    <input type ="text" name="role" value={this.state.role} onChange={this.handleChange}/><br/>
                 </label><br/>
                 <input type="submit" value="REGISTER" className="btn-primary"/>
             </form>

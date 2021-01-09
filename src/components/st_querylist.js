@@ -12,11 +12,11 @@ class st_querylist extends Component{
     }
     
     componentDidMount(){
-        axios.get('http://127.0.0.1:8000/getquery')
+        axios.get('http://localhost:8000/api/query/')
         .then(res =>
             {
                 console.log(res);
-                const st_query = res.data;
+                const st_query = res.data.data;
                 this.setState({st_query})
             }
             )
@@ -32,7 +32,7 @@ class st_querylist extends Component{
             
             <div className="container p-4" onClick={this.handleClick}>
                 <ul className="list-group" >
-                    {this.state.st_query.map(querylist => <li className="list-group-item" ><Link to ={`/postanswer/${querylist.id}`} style={{textDecoration: "none"}}>{querylist.query} </Link> </li>)}
+                    {this.state.st_query.map(querylist => <li className="list-group-item" ><Link to ={`/postanswer/${querylist._id}`} style={{textDecoration: "none"}}>{querylist.query} </Link> </li>)}
                 </ul>
             </div>
             </div>

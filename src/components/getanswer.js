@@ -1,7 +1,9 @@
 import React,{Component} from 'react';
 import axios from 'axios';
+import {AuthContext} from "../contextapi/authContext"
 
 class getanswer extends Component{
+  static contextType = AuthContext
      constructor(props){ 
        super(props);
            this.state = {
@@ -9,11 +11,11 @@ class getanswer extends Component{
             
       };
     } 
-    
+   
       componentDidMount() {
-        const { id } = this.props.match.params
-        console.log(id);
-        axios.get(`http://127.0.0.1:8000/answer/${id}`)
+        console.log(this.props.match.params.id)
+        const id = this.props.match.params.id
+        axios.get(`http://localhost:8000/api/answer/${id}`)
       .then(res => {
         console.log(res);
         this.setState({answers:res.data.answer});
@@ -27,9 +29,9 @@ class getanswer extends Component{
         console.log(answers)
         return (
           <ul className="listgroup">
-            Answer:<li className="list-group-item">{answers.answer}</li><br/>
-            Answered By:<li className="list-group-item">{answers.answered_by}</li><br/>
-            Query_id: {answers.query}
+            Answer:<li className="list-group-item">{answers}</li><br/>
+          
+            
               {/* {answers && answers.map(answer =>
                  <li>{answer.answered_by}</li>
                 )}    

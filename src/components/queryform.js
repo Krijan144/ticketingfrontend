@@ -16,7 +16,7 @@ class queryform extends Component {
       };
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        //this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleChange(event){
@@ -34,25 +34,17 @@ class queryform extends Component {
     //   console.log("clicked")
     //   console.log(this.props.match.params.id)
     // }
-  //   componentDidMount(){
-  //     axios.get(`http://127.0.0.1:8000/getquery`)
-  //     .then(res=>
-  //         {
-  //             console.log(res);
-  //             const query1 = res.data
-  //             this.setState(
-  //                 {query1}
-  //             )
-  //         }
-  //         )
-  // }
+   
     handleSubmit(event){
         event.preventDefault();
-        const token = localStorage.getItem.token
+        console.log(this.context.user.user.id)
+        const id = this.context.user.user.id
+        console.log(this.context.user.token)
+        const token = this.context.user.token
         console.log(this.state);
         axios({
             
-            url:"http://localhost:8000/api/query/",
+            url:`http://localhost:8000/api/query/${id}`,
             method:"POST",
             data:this.state.formData,
             headers:{
