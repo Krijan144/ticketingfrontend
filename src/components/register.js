@@ -1,20 +1,23 @@
 import React,{Component} from 'react';
 import axios from 'axios'
+import {AuthContext} from '../contextapi/authContext'
 
 class register extends Component{
+    static contextType = AuthContext
     constructor(props){
         super(props);
         this.state = {
             fullname:"",
             email:"",
             password: "",
-            passwordCheck:""
+            passwordCheck:"",
+            role:""
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-        handleSubmit(event){
+        handleSubmit(event){    
             event.preventDefault();
             axios({
                 url:"http://localhost:8000/users/register",
@@ -47,9 +50,11 @@ class register extends Component{
                     <input type ="text" name="fullname" value={this.state.fullname} onChange={this.handleChange}/><br/>
                     
                     Password:<br/>
-                    <input type ="text" name="password" value={this.state.password} onChange={this.handleChange}/><br/>
+                    <input type ="password" name="password" value={this.state.password} onChange={this.handleChange}/><br/>
                     Confirm Password:<br/>
-                    <input type ="text" name="passwordCheck" value={this.state.passwordCheck} onChange={this.handleChange}/><br/>
+                    <input type ="password" name="passwordCheck" value={this.state.passwordCheck} onChange={this.handleChange}/><br/>
+                    Role:<br/>
+                    <input type ="text" name="role" value={this.state.role} onChange={this.handleChange}/><br/>
                 </label><br/>
                 <input type="submit" value="REGISTER" className="btn-primary"/>
             </form>

@@ -49,7 +49,7 @@ class login extends Component{
         }
 
     render(){
-        console.log(this.context)
+        //console.log(this.context)
         return(
             <div className="container">
             <form onSubmit={this.handleSubmit}>

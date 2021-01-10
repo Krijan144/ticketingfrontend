@@ -40,6 +40,7 @@ class App extends Component{
 
         </BrowserRouter>
       </AuthProvider>
+      // <h1>hi</h1>
     
     );
   }
