@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import axios from 'axios'
-//import {AuthContext} from '../contextapi/authContext'
+import {AuthContext} from '../contextapi/authContext'
 import { useAccordionToggle } from 'react-bootstrap';
 
 // const { state: ContextState, login } = useContext(AuthContext);
@@ -12,7 +12,7 @@ import { useAccordionToggle } from 'react-bootstrap';
 // const [state, setState] = useSetState(initialState);
 
 class login extends Component{
-  //  static contextType=AuthContext
+    static contextType=AuthContext
     constructor(props){
         super(props);
         this.state = {

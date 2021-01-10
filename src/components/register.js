@@ -1,7 +1,9 @@
 import React,{Component} from 'react';
 import axios from 'axios'
+import {AuthContext} from '../contextapi/authContext'
 
 class register extends Component{
+    static contextType = AuthContext
     constructor(props){
         super(props);
         this.state = {
@@ -15,7 +17,7 @@ class register extends Component{
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-        handleSubmit(event){
+        handleSubmit(event){    
             event.preventDefault();
             axios({
                 url:"http://localhost:8000/users/register",
