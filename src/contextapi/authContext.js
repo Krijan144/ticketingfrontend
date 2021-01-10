@@ -1,10 +1,16 @@
-import React, { Component, useState } from 'react';
+import React, { useState, createContext } from 'react';
+import App from '../App';
 
-export const AuthContext = React.createContext(null);
+export const AuthContext = createContext();
 
-export const initialState = {
-    token: localStorage.getItem('token'),
-    isLoggedin: false,
-    isLoggedPending: false,
-    loginError: null,
+export const AuthProvider = (props) => {
+
+    const [isAutheticated, setIsAutheticated] = useState(false);
+
+
+    return (
+        <AuthContext.Provider value={[isAutheticated, setIsAutheticated]}>
+            {props.children}
+        </AuthContext.Provider>
+    )
 }

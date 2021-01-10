@@ -45,6 +45,18 @@ class queryform extends Component {
   //         }
   //         )
   // }
+
+  componentDidMount() {
+    axios.get(`http://localhost:8000/api/query`)
+      .then(res => {
+        console.log(res);
+        const query = res.data
+        this.setState(
+          { query1: query }
+        )
+      }
+      )
+  }
   handleSubmit(event) {
     event.preventDefault();
 
@@ -62,6 +74,9 @@ class queryform extends Component {
       .catch(err => {
         console.log(err);
       })
+
+
+
   }
 
   render() {
@@ -91,13 +106,9 @@ class queryform extends Component {
         <Form>
           <h3>SUBMIT YOUR QUERIES</h3>
           <Form.Group controlId="exampleForm.ControlSelect1">
-            <Form.Label>Example select</Form.Label>
+            <Form.Label>Select Query</Form.Label>
             <Form.Control as="select">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+              {this.state.query1.map(querylist => <option id={querylist.id}>{querylist.query}</option>)}
             </Form.Control>
           </Form.Group>
           <Form.Group controlId="exampleForm.ControlInput1">

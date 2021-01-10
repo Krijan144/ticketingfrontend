@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios'
-import AuthContext from '../contextapi/authContext'
 import { Form, Button } from 'react-bootstrap'
+import { AuthContext } from '../contextapi/authContext';
 
 
 const Login = (props) => {
@@ -9,6 +9,7 @@ const Login = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [isAutheticated, setIsAutheticated] = useContext(AuthContext);
 
 
     const handleSubmit = (event) => {
@@ -22,11 +23,14 @@ const Login = (props) => {
             }
         }).then(response => {
             console.log(response)
+            localStorage.setItem('token', response.data.token)
+            setIsAutheticated(true)
         }).catch(err => {
             console.log(err)
         })
 
     }
+
 
     return (
         <div className="container p-5">
