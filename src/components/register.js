@@ -27,7 +27,10 @@ class register extends Component{
                     "Content-Type":"application/json"
                 }
             }).then(response=>{
-                console.log(response)
+                const { token,user } = response.data
+                    localStorage.setItem("token", token)
+                    localStorage.setItem("user", JSON.stringify(user));
+                    console.log(response)
             }).catch(err=>{
                 console.log(err)
             })

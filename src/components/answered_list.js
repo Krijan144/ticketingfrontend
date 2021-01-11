@@ -2,22 +2,22 @@ import React,{Component} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-class st_querylist extends Component{
+class st_answeredlist extends Component{
     constructor(props){
         super(props);
         this.state ={
-            st_query:[],
+            ansd_query:[],
         };
         this.handleSubmit = this.handleClick.bind(this);
     }
     
     componentDidMount(){
-        axios.get('http://localhost:8000/api/query/false')
+        axios.get('http://localhost:8000/api/query/true')
         .then(res =>
             {
                 console.log(res);
-                const st_query = res.data.data;
-                this.setState({st_query})
+                const ansd_query = res.data.data;
+                this.setState({ansd_query})
             }
             )
     }
@@ -28,15 +28,15 @@ class st_querylist extends Component{
     render(){
         return(
             <div className="container">
-            <h2>TECHRIDA SOLUTION</h2>
+            <h2>ANSWERED QUERY</h2>
             
             <div className="container p-4" onClick={this.handleClick}>
                 <ul className="list-group" >
-                    {this.state.st_query.map(querylist => <li className="list-group-item" ><Link to ={`/postanswer/${querylist._id}`} style={{textDecoration: "none"}}>{querylist.query} </Link> </li>)}
+                    {this.state.ansd_query.map(ansdlist => <li className="list-group-item" > {ansdlist.query}</li>)}
                 </ul>
             </div>
             </div>
         )
     }
 }
-export default st_querylist;
+export default st_answeredlist;

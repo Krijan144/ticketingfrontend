@@ -8,6 +8,7 @@ import Nav1 from './components/header'
 import home from './components/main'
 import querylist from './components/querylist'
 import st_querylist from './components/st_querylist'
+import st_answeredlist from './components/answered_list'
 import dropdown from './components/dropdown'
 import register from './components/register'
 import Nav2 from './components/header2'
@@ -28,6 +29,7 @@ class App extends Component{
            <Route path='/' exact component={home} />
            <Route path='/querylist/' exact component={querylist} />
            <Route path='/st_querylist/' exact component={st_querylist} />
+           <Route path='/st_answeredlist/' exact component={st_answeredlist} />
            <Route path='/dropdown' exact component={dropdown} />
            <Route path='/register' exact component={register} />
          
