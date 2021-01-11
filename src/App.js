@@ -3,7 +3,6 @@ import Routes from './routes'
 import { AuthProvider } from './contextapi/authContext';
 
 const App = () => {
-  // const [isAuthetiacated, setIsAutheticated] = useContext(AuthContext)
 
   return (
     <AuthProvider>
@@ -11,6 +10,7 @@ const App = () => {
     </AuthProvider>
 
   );
+
 
 }
 

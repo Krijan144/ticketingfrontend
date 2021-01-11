@@ -1,43 +1,44 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
+import { AuthContext } from "../contextapi/authContext"
 
-class getanswer extends Component{
-     constructor(props){ 
-       super(props);
-           this.state = {
-            answers: [],
-            
-      };
-    } 
-    
-      componentDidMount() {
-        const { id } = this.props.match.params
-        console.log(id);
-        axios.get(`http://127.0.0.1:8000/answer/${id}`)
+class getanswer extends Component {
+  static contextType = AuthContext
+  constructor(props) {
+    super(props);
+    this.state = {
+      answers: [],
+
+    };
+  }
+
+  componentDidMount() {
+    console.log(this.props.match.params.id)
+    const id = this.props.match.params.id
+    axios.get(`http://localhost:8000/api/answer/${id}`)
       .then(res => {
         console.log(res);
-        this.setState({answers:res.data.answer});
-        
-      })
-      }
+        this.setState({ answers: res.data.answer });
 
-    
-      render() {
-        const { answers } = this.state;
-        console.log(answers)
-        return (
-          <ul className="listgroup">
-            Answer:<li className="list-group-item">{answers.answer}</li><br/>
-            Answered By:<li className="list-group-item">{answers.answered_by}</li><br/>
-            Query_id: {answers.query}
-              {/* {answers && answers.map(answer =>
+      })
+  }
+
+
+  render() {
+    const { answers } = this.state;
+    return (
+      <ul className="listgroup">
+        Answer:<li className="list-group-item">{answers}</li><br />
+
+
+        {/* {answers && answers.map(answer =>
                  <li>{answer.answered_by}</li>
                 )}    
                 
                 */}
-          </ul>
-        )
-      }
+      </ul>
+    )
+  }
 }
 
 export default getanswer;

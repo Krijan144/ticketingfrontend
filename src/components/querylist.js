@@ -2,21 +2,33 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../contextapi/authContext'
 
 class querylist extends Component {
+    static contextType = AuthContext
+
     constructor(props) {
         super(props);
         this.state = {
             query: [],
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     componentDidMount() {
-        axios.get(`http://localhost:8000/api/query`)
+        console.log(this.context.uso[0].user.id)
+        const id = this.context.uso[0].user.id
+        const token = this.context.uso[0].token
+        axios.get(`http://localhost:8000/api/query/${id}`,
+            {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
             .then(res => {
                 console.log(res);
-                const query = res.data
+                const query = res.data.data
                 this.setState(
                     { query }
                 )
@@ -26,18 +38,12 @@ class querylist extends Component {
     handleSubmit(event) {
         console.log("clicked");
     }
-    // handleClick(id){
-    //     console.log(id);
-    //     <Link to={
-    //         "/getanswer/:id"
-    //     }
-    //     />
-    // }
+
     render() {
         return (
             <div className="container p-4" onClick={this.handleSubmit}>
                 <ul className="list-group" style={{ textDecoration: 'none' }}>
-                    {this.state.query.map(querylist => <li className="list-group-item"><Link to={`/getanswer/${querylist.id}`} style={{ textDecoration: "none" }} >{querylist.query}</Link></li>)}
+                    {this.state.query.map(querylist => <li className="list-group-item"><Link to={`/getanswer/${querylist._id}`} style={{ textDecoration: "none", color: '#333' }} >{querylist.query}</Link></li>)}
 
                 </ul>
             </div>

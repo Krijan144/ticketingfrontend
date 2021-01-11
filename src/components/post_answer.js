@@ -1,14 +1,14 @@
 import React,{Component} from "react";
 import axios from "axios";
 import querylist from "./querylist";
+import {AuthContext} from "../contextapi/authContext"
 
 class postanswer extends Component{
+    static contextType = AuthContext
     constructor(props){
         super(props);
         this.state={
-            answered_by:"",
-            answer:"",
-            query:this.props.match.params.id
+            answer:""
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,9 +21,12 @@ class postanswer extends Component{
     }
     handleSubmit(event){
         event.preventDefault();
+        console.log(this.props);
+        const id = this.props.match.params.id;
 
         axios({
-            url:"http://127.0.0.1:8000/post_answer/",
+           
+            url:`http://localhost:8000/api/answer/${id}`,
             method:"POST",
             data:this.state,
             headers:{
@@ -45,8 +48,7 @@ class postanswer extends Component{
                 <h2>Answering Form</h2>
                 <form onSubmit={this.handleSubmit}>
                 <label>
-                    Answered_by:
-                    <input type="text" name="answered_by" value={this.state.answered_by} onChange={this.handleChange}/>
+                    
                     Answer:
                     <input type="text" name="answer" value={this.state.answer} onChange={this.handleChange}/>
                     {/* Userid: */}

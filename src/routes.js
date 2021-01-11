@@ -15,13 +15,13 @@ import RouterGuard from './routerGuard';
 import { AuthContext } from './contextapi/authContext';
 
 const Routes = () => {
-    const [isAutheticated, setIsAutheticated] = useContext(AuthContext);
+    const [isAutheticated, setIsAutheticated] = useContext(AuthContext).auth;
 
     return (
         <BrowserRouter>
             <Nav1 />
             <RouterGuard path='/queryform' component={queryform} auth={isAutheticated} />
-            <RouterGuard path='/postanswer/:id' exact component={postanswer} />
+            <Route path='/postanswer/:id' exact component={postanswer} />
             <Route path='/getanswer/:id' exact component={getanswer} />
             <Route path='/login' exact component={Login} />
             <Route path='/' exact component={home} />

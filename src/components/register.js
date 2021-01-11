@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap'
 import axios from 'axios'
+import { AuthContext } from '../contextapi/authContext'
 
 class register extends Component {
     constructor(props) {
@@ -9,12 +10,14 @@ class register extends Component {
             fullname: "",
             email: "",
             password: "",
-            passwordCheck: ""
+            passwordCheck: "",
+            role: ""
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
     handleSubmit(event) {
         event.preventDefault();
         axios({
@@ -25,6 +28,13 @@ class register extends Component {
                 "Content-Type": "application/json"
             }
         }).then(response => {
+            this.setState({
+                fullname: "",
+                email: "",
+                password: "",
+                passwordCheck: "",
+                role: ""
+            });
             console.log(response)
         }).catch(err => {
             console.log(err)
@@ -33,6 +43,8 @@ class register extends Component {
     }
     handleChange(event) {
         this.setState({ [event.target.getAttribute("name")]: event.target.value });
+        console.log(this.state.role);
+
     }
 
     //email, password, passwordCheck, fullname 
@@ -84,7 +96,13 @@ class register extends Component {
                         <Form.Group controlId="formBasicCheckbox">
                             <Form.Check type="checkbox" label="Check me out" />
                         </Form.Group>
-
+                        <Form.Group controlId="exampleForm.ControlSelect1">
+                            <Form.Label>Role</Form.Label>
+                            <Form.Control as="select" value={this.state.value} onChange={(e) => { this.setState({ role: e.target.value }) }}>
+                                <option value="customer">customer</option>
+                                <option value="admin">admin</option>
+                            </Form.Control>
+                        </Form.Group>
                         <Button variant="primary" type="submit">Login</Button>
 
                     </Form>

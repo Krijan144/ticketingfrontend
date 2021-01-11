@@ -9,7 +9,7 @@ const Login = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const [isAutheticated, setIsAutheticated] = useContext(AuthContext);
+    const [isAutheticated, setIsAutheticated] = useContext(AuthContext).auth;
 
 
     const handleSubmit = (event) => {
@@ -23,8 +23,13 @@ const Login = (props) => {
             }
         }).then(response => {
             console.log(response)
-            localStorage.setItem('token', response.data.token)
+            const { token, user } = response.data
+            localStorage.setItem("token", token)
+            localStorage.setItem("user", JSON.stringify(user));
+            console.log(response)
             setIsAutheticated(true)
+            setEmail('')
+            setPassword('')
         }).catch(err => {
             console.log(err)
         })
