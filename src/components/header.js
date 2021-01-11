@@ -26,10 +26,14 @@ const Nav1 = () => {
                         {/* <Link to="/queryform">SubmitQuery</Link> */}
                         <Nav.Link as={Link} to="/querylist" className="mr-5">QueryList</Nav.Link>
                         <NavDropdown title="Account" id="basic-nav-dropdown" >
-                            <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
-                            <NavDropdown.Item as={Link} to="/register">Register</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item as={Link} to="#action/3.4" onClick={handleOut}>Logout</NavDropdown.Item>
+                            {isAutheticated ?
+                                <NavDropdown.Item as={Link} to="#action/3.4" onClick={handleOut}>Logout</NavDropdown.Item>
+                                :
+                                <div>
+                                    <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="/register">Register</NavDropdown.Item>
+                                </div>
+                            }
                         </NavDropdown>
                     </Nav>
                     <Form inline>
