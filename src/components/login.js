@@ -1,7 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Alert } from 'react-bootstrap'
 import { AuthContext } from '../contextapi/authContext';
+import { Redirect, useHistory } from 'react-router-dom';
 
 
 const Login = (props) => {
@@ -9,11 +10,15 @@ const Login = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [show, setShow] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
     const [isAutheticated, setIsAutheticated] = useContext(AuthContext).auth;
-
+    const [user, setUser] = useContext(AuthContext).uso;
+    let history = useHistory();
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
         axios({
             url: "http://localhost:8000/users/login/",
             method: "POST",
@@ -28,19 +33,35 @@ const Login = (props) => {
             localStorage.setItem("user", JSON.stringify(user));
             console.log(response)
             setIsAutheticated(true)
-            setEmail('')
-            setPassword('')
-        }).catch(err => {
-            console.log(err)
-        })
+            setSubmitted(true)
+            setShow(false)
+            history.push('/queryform')
 
+        }).catch(err => {
+            console.log(err.response.data.msg)
+            setShow(true)
+            setError(err.response.data.msg)
+        })
     }
 
 
+    useEffect(() => {
+        if (localStorage.getItem('token') == user.token) {
+            setIsAutheticated(true)
+        }
+    }, [])
+
     return (
         <div className="container p-5">
-            <div className="col-5 offset-md-4">
+            <div className="col-lg-5 offset-md-4">
+                {show ? <Alert variant='danger'>
+                    {error}
+                </Alert> : null}
+                {submitted && <Alert variant='success'>Success! You are logged in.</Alert>}
+
+
                 <h3 className="text-center my-5">LOGIN</h3>
+
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
@@ -56,7 +77,7 @@ const Login = (props) => {
                     </Form.Group>
 
                     <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="Check me out" />
+                        <Form.Check type="checkbox" label="Remember me" />
                     </Form.Group>
 
                     <Button variant="primary" type="submit">Login</Button>
