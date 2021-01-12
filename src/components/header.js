@@ -21,27 +21,27 @@ const Nav1 = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
-                        <Nav.Link as={Link} to="/">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/queryform" className="mx-5">SubmitQuery</Nav.Link>
+                        <Nav.Link as={Link} to="/" className="mr-5">Home</Nav.Link>
+                        <Nav.Link as={Link} to="/queryform" className="mr-5">SubmitQuery</Nav.Link>
                         {/* <Link to="/queryform">SubmitQuery</Link> */}
                         <Nav.Link as={Link} to="/querylist" className="mr-5">QueryList</Nav.Link>
-                        <NavDropdown title="Account" id="basic-nav-dropdown" >
-                            {isAutheticated ?
-                                <NavDropdown.Item as={Link} to="#action/3.4" onClick={handleOut}>Logout</NavDropdown.Item>
-                                :
-                                <div>
-                                    <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
-                                    <NavDropdown.Item as={Link} to="/register">Register</NavDropdown.Item>
-                                </div>
-                            }
-                        </NavDropdown>
+
+                        {isAutheticated ?
+                            <Nav.Link as={Link} to="#action/3.4" onClick={handleOut}>Logout</Nav.Link>
+                            :
+                            <NavDropdown title="Account" id="basic-nav-dropdown" >
+                                <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/register">Register</NavDropdown.Item>
+                            </NavDropdown>
+                        }
+
                     </Nav>
                     <Form inline>
 
                     </Form>
                 </Navbar.Collapse>
             </div>
-        </Navbar>
+        </Navbar >
 
     )
 

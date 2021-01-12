@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { AuthContext } from '../contextapi/authContext'
+import { Link } from 'react-router-dom';
 
 class querylist extends Component {
     static contextType = AuthContext
@@ -43,7 +42,11 @@ class querylist extends Component {
         return (
             <div className="container p-4" onClick={this.handleSubmit}>
                 <ul className="list-group" style={{ textDecoration: 'none' }}>
-                    {this.state.query.map(querylist => <li className="list-group-item"><Link to={`/getanswer/${querylist._id}`} style={{ textDecoration: "none", color: '#333' }} >{querylist.query}</Link></li>)}
+                    {this.state.query.map(querylist => <li className="list-group-item">
+                        <Link to={`/getanswer/${querylist._id}`} style={{ textDecoration: "none", color: '#333' }} >
+                            {querylist.query}
+                        </Link>
+                    </li>)}
 
                 </ul>
             </div>

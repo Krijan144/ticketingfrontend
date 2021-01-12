@@ -1,4 +1,6 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
+import Axios from "axios"
+
 import App from '../App';
 
 export const AuthContext = createContext();
@@ -12,7 +14,6 @@ export const AuthProvider = ({ children }) => {
             user: JSON.parse(localStorage.getItem("user"))
         }
     );
-
 
     return (
         <AuthContext.Provider value={
