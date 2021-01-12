@@ -36,7 +36,7 @@ const Routes = () => {
             <Route path='/st_answeredlist/' exact component={st_answeredlist} />
             <Route path='/dropdown' exact component={dropdown} />
             <Route path='/register' exact component={register} />
-            <Route path='/querybutton' exact component={button}/>
+            <RouterGuard path='/querybutton' exact component={button}/>
 
 
 

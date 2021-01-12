@@ -22,7 +22,7 @@ const Nav1 = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/queryform" className="mx-5">SubmitQuery</Nav.Link>
+                        <Nav.Link  href="/queryform" className="mx-5">SubmitQuery</Nav.Link>
                         {/* <Link to="/queryform">SubmitQuery</Link> */}
                         <Nav.Link as={Link} to="/querybutton" className="mr-5">QueryList</Nav.Link>
                         <NavDropdown title="Account" id="basic-nav-dropdown" >
