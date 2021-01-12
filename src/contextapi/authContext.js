@@ -1,51 +1,24 @@
-import React,{Component,useState}  from 'react';
+import React, { useState, createContext } from 'react';
+import App from '../App';
 
-export const AuthContext = React.createContext(null);
+export const AuthContext = createContext();
 
-// export const initialState = {
-//     token: localStorage.getItem('token'),
-//     isLoggedin: false,
-//     isLoggedPending: false,
-//     loginError: null
-// }
-// export const ContextProvider = props =>{
-//     const [isLoggedinPending,setLoginPending] = useState(false)
-//     const [isloggedIn,setLoggedIn] = useState(false)
-//     const [isloggedinError,setLoggedInError] = useState(null)
+export const AuthProvider = ({ children }) => {
 
-//     const login = (error) =>{
-//         setLoginPending(true),
-//         setLoggedIn(false),
-//         isLoggedinError(null)
-        
-
-//         if (!error){
-//             setLoggedIn(true)
-//         }
-//         else{
-//             setLoggedInError(error)
-//         }
-//     }
-//     const logout = () => {
-//         setLoggedIn(false),
-//         setLoginPending(false),
-//         isLoggedInError(null)
-
-//     }
-// }
-
-export const AuthProvider = ({children}) =>{
-    const [user,setUser] = useState(
+    const [isAutheticated, setIsAutheticated] = useState(false);
+    const [user, setUser] = useState(
         {
             token: localStorage.getItem("token"),
             user: JSON.parse(localStorage.getItem("user"))
         }
     );
 
-    return(
-        <AuthContext.Provider value={{user,setUser}}>
+
+    return (
+        <AuthContext.Provider value={
+            { auth: [isAutheticated, setIsAutheticated], uso: [user, setUser] }
+        } >
             {children}
         </AuthContext.Provider>
     )
-
 }

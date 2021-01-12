@@ -1,63 +1,58 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
-import {} from 'react-bootstrap';
+import { } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import {AuthContext} from '../contextapi/authContext'
+import { AuthContext } from '../contextapi/authContext';
+import { ListGroup } from 'react-bootstrap';
 
-class querylist extends Component{
+class querylist extends Component {
     static contextType = AuthContext
-    constructor(props){
+
+    constructor(props) {
         super(props);
-        this.state ={
-            query:[],
+        this.state = {
+            query: [],
         };
-        //this.handleSubmit = this.handleSubmit.bind(this);
-        
+        this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
-    componentDidMount(){
-        console.log(this.context.user.user.id);
-        console.log(this.context.user.token);
-        const id = this.context.user.user.id
-        const token = this.context.user.token
-        axios({
-            url:`http://localhost:8000/api/query/${id}`,
-            method:"GET",
-            headers:{
-                "Authorization": `Bearer ${token}`
-            }
-        })
-        .then(res=>
+    componentDidMount() {
+        console.log(this.context.uso[0].user.id)
+        const id = this.context.uso[0].user.id
+        const token = this.context.uso[0].token
+        axios.get(`http://localhost:8000/api/query/${id}`,
             {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+            .then(res => {
                 console.log(res);
                 const query = res.data.data
                 this.setState(
-                    {query}
+                    { query }
                 )
             }
             )
     }
-    // handleSubmit(event){
-    //     console.log("clicked");
+    handleSubmit(event) {
+        console.log("clicked");
+    }
 
-    // }
-    // handleClick(id){
-    //     console.log(id);
-    //     <Link to={
-    //         "/getanswer/:id"
-    //     }
-    //     />
-    // }
-    
-    render(){
-        console.log(this.state.query, "ok")
-        return(
-            <div className="container p-4" onClick={this.handleSubmit}>
-            <ul className="list-group" style={{textDecoration: 'none'}}>
-                {this.state.query.map(querylist => <li className="list-group-item"><Link to={`/getanswer/${querylist._id}`} style={{textDecoration: "none"}} >{querylist.query}</Link></li>)}
-
-            </ul>
-            </div>
+    render() {
+        return (
+            <ListGroup className="container p-4" onClick={this.handleSubmit}>
+                <h5><b>Following Queries are yet to be answered</b></h5><br/>
+                
+                {this.state.query.map(querylist => 
+                <Link to={`/getanswer/${querylist._id}`} style={{ textDecoration: "none", color: "#333"}} >
+                    <ListGroup.Item className="mb-2">
+                    {querylist.query}
+                    </ListGroup.Item>
+                </Link>)}
+                <br/>
+            </ListGroup>
         )
     }
 }

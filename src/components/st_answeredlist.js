@@ -31,8 +31,18 @@ class st_answeredlist extends Component{
             <h2>ANSWERED QUERY</h2>
             
             <div className="container p-4" onClick={this.handleClick}>
-                <ul className="list-group" >
-                    {this.state.ansd_query.map(ansdlist => <li className="list-group-item" > {ansdlist.query}</li>)}
+                <ul className="list-group" style={{color:"green"}} >
+                    {this.state.ansd_query.map(ansdlist => <li className="list-group-item" >
+                    {/* <Link to={`/getanswer/${ansdlist._id}`} style={{ textDecoration: "none", color: 'green' }} >{ansdlist.query}</Link> */}
+                    <Link style={{ textDecoration: "none", color: 'green' }} to ={{
+                    pathname:`/getanswer/${ansdlist._id}`,
+                    aboutProps:{
+                        query:`${ansdlist.query}`
+                    }
+                }}>
+                    {ansdlist.query}
+                </Link>
+                    </li>)}
                 </ul>
             </div>
             </div>
