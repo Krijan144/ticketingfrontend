@@ -12,7 +12,9 @@ const Login = (props) => {
     const [error, setError] = useState("");
     const [show, setShow] = useState(false);
     const [submitted, setSubmitted] = useState(false);
-    const [isAutheticated, setIsAutheticated] = useContext(AuthContext).auth;
+    // const [isAutheticated, setIsAutheticated] = useContext(AuthContext).auth;
+    const [isLoggedin, setIsLoggedin] = useContext(AuthContext).login;
+
     const [user, setUser] = useContext(AuthContext).uso;
     let history = useHistory();
 
@@ -32,7 +34,9 @@ const Login = (props) => {
             localStorage.setItem("token", token)
             localStorage.setItem("user", JSON.stringify(user));
             console.log(response)
-            setIsAutheticated(true)
+            // window.location.reload(false);
+            // setIsAutheticated(true)
+            setIsLoggedin(true)
             setSubmitted(true)
             setShow(false)
             history.push('/queryform')
@@ -45,11 +49,12 @@ const Login = (props) => {
     }
 
 
-    useEffect(() => {
-        if (localStorage.getItem('token') == user.token) {
-            setIsAutheticated(true)
-        }
-    }, [])
+
+    // useEffect(() => {
+    //     if (localStorage.getItem('token') == user.token) {
+    //         setIsAutheticated(true)
+    //     }
+    // }, [])
 
     return (
         <div className="container p-5">
@@ -62,7 +67,7 @@ const Login = (props) => {
 
                 <h3 className="text-center my-5">LOGIN</h3>
 
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} style={{ transition: '1s ease' }}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" name="email" value={email} onChange={e => setEmail(e.target.value)} />
