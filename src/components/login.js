@@ -31,14 +31,21 @@ const Login = (props) => {
         }).then(response => {
             console.log(response)
             const { token, user } = response.data
-            localStorage.setItem("token", token)
-            localStorage.setItem("user", JSON.stringify(user));
+            const tkn = localStorage.setItem("token", token)
+            const usr = localStorage.setItem("user", JSON.stringify(user));
+
+            setUser({
+                token: tkn,
+                user: usr
+            })
+
             console.log(response)
             // window.location.reload(false);
             // setIsAutheticated(true)
             setIsLoggedin(true)
             setSubmitted(true)
             setShow(false)
+
             history.push('/queryform')
 
         }).catch(err => {

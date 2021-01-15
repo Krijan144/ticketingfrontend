@@ -18,9 +18,9 @@ const Routes = () => {
     // const [isAutheticated, setIsAutheticated] = useContext(AuthContext).auth;
     const [isLoggedin, setIsLoggedin] = useContext(AuthContext).login;
 
-    if (!(localStorage.getItem("token") === null)) {
-        setIsLoggedin(true)
-    }
+    // if (!(localStorage.getItem("token") === null)) {
+    //     setIsLoggedin(true)
+    // }
 
     return (
         <BrowserRouter>

@@ -12,8 +12,6 @@ export const AuthProvider = ({ children }) => {
         }
     );
     const [isLoggedin, setIsLoggedin] = useState(user.token !== null)
-    // console.log(isLoggedin, "=====> status");
-
 
     return (
         <AuthContext.Provider value={
