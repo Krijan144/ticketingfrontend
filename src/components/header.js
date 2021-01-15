@@ -41,7 +41,7 @@ const Nav1 = () => {
                     </Form>
                 </Navbar.Collapse>
             </div>
-        </Navbar>
+        </Navbar >
 
     )
 

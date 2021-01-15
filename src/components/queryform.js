@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import querylist from "./querylist";
 import { AuthContext } from "../contextapi/authContext";
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Alert } from 'react-bootstrap'
 
 
 class Queryform extends Component {
@@ -15,6 +15,7 @@ class Queryform extends Component {
         ellaborate: "",
         query: "",
       },
+      submitted: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -37,18 +38,9 @@ class Queryform extends Component {
   // }
 
   handleChange(event) {
-
     this.setState((prev) => ({ formData: { ...prev.formData, [event.target.getAttribute("name")]: event.target.value } }));
-    console.log(this.context.uso[0].token);
-
-
+    console.log(this.context.uso[0].user);
   }
-  // handleChange(event){
-  //   console.log("clicked")
-  //   console.log(this.props.match.params.id)
-  // }
-
-
 
   handleSubmit(event) {
     event.preventDefault();
@@ -66,6 +58,12 @@ class Queryform extends Component {
         "Authorization": `Bearer ${token}`
       }
     }).then(response => {
+      this.setState(
+        {
+          submitted: true,
+        }
+      )
+      this.setState((prev) => ({ formData: { ...prev.formData, query: '', ellaborate: '' } }))
       console.log(response)
     })
       .catch(err => {
@@ -74,35 +72,12 @@ class Queryform extends Component {
   }
 
   render() {
-    console.log(this.context)
     //const {name} = this.context;
     //console.log(name)
     return (
       <div className="container p-5 col-5 offset-md-4">
-        {/* <label>
-            <select onChange={(event) => this.setState((prev) => ({formData: {...prev.formData, query: event.target.value}})) }>
-                {this.state.query1.map(querylist => <option id={querylist.id}>{querylist.query}</option>)}
-            </select>
-            <br />
-            <div className="container p-1">
-
-            </div >
-            </label>  */}
-        {/* <form onSubmit={this.handleSubmit}>
-          <label>
-
-            Query:<br />
-            <input type="text" name="query" value={this.state.formData.query} onChange={this.handleChange} /><br />
-            Ellaborate:<br />
-            <textarea value={this.state.formData.ellaborate} rows="5" cols="60" name="ellaborate" onChange={this.handleChange} />
-
-            <br />
-          </label>
-          <br />
-          <input type="submit" value="Submit" className="btn-primary" />
-        </form> */}
-
-        <Form onClick={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} >
+          {this.state.submitted && <Alert variant='success'>Success! Your problem will be noticed fast.</Alert>}
           <h3>SUBMIT YOUR QUERIES</h3>
           <Form.Group controlId="exampleForm.ControlSelect1">
             <Form.Label>Select Query</Form.Label>
@@ -122,7 +97,7 @@ class Queryform extends Component {
             <Form.Label>Ellaborate</Form.Label>
             <Form.Control as="textarea" rows={3} value={this.state.formData.ellaborate} rows="5" name="ellaborate" onChange={this.handleChange} />
           </Form.Group>
-          <Button variant="primary">Submit</Button>
+          <Button variant="primary" type="submit">Submit</Button>
         </Form>
       </div>
     );

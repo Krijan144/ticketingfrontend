@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Alert } from 'react-bootstrap'
 import axios from 'axios'
 import { AuthContext } from '../contextapi/authContext'
 
@@ -11,7 +11,11 @@ class register extends Component {
             email: "",
             password: "",
             passwordCheck: "",
-            role: ""
+            role: "customer",
+            show: false,
+            error: "",
+            submitted: false
+
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -33,11 +37,17 @@ class register extends Component {
                 email: "",
                 password: "",
                 passwordCheck: "",
-                role: ""
+                role: "",
+                submitted: true,
+                show: false
             });
             console.log(response)
         }).catch(err => {
-            console.log(err)
+            console.log(err.response.data.msg)
+            this.setState({
+                show: true,
+                error: err.response.data.msg
+            })
         })
 
     }
@@ -67,7 +77,14 @@ class register extends Component {
                     <input type="submit" value="REGISTER" className="btn-primary" />
                 </form> */}
 
-                <div className="col-5 offset-md-4">
+
+                <div className="col-lg-5 col-md-5  offset-md-4 my-5">
+
+
+                    {this.state.show ? <Alert variant='danger'>
+                        {this.state.error}
+                    </Alert> : null}
+                    {this.state.submitted && <Alert variant='success'>Success! You are successfully registered.</Alert>}
                     <h3 className="text-center my-5">SIGN UP</h3>
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group controlId="formBasicEmail">
@@ -93,9 +110,6 @@ class register extends Component {
                             <Form.Control type="password" placeholder="Re-type Password" name="passwordCheck" value={this.state.passwordCheck} onChange={this.handleChange} />
                         </Form.Group>
 
-                        <Form.Group controlId="formBasicCheckbox">
-                            <Form.Check type="checkbox" label="Check me out" />
-                        </Form.Group>
                         <Form.Group controlId="exampleForm.ControlSelect1">
                             <Form.Label>Role</Form.Label>
                             <Form.Control as="select" value={this.state.value} onChange={(e) => { this.setState({ role: e.target.value }) }}>
@@ -103,7 +117,10 @@ class register extends Component {
                                 <option value="admin">admin</option>
                             </Form.Control>
                         </Form.Group>
-                        <Button variant="primary" type="submit">Login</Button>
+                        <Form.Group controlId="formBasicCheckbox">
+                            <Form.Check type="checkbox" label="Remember me" />
+                        </Form.Group>
+                        <Button variant="primary" type="submit">Register</Button>
 
                     </Form>
                 </div>

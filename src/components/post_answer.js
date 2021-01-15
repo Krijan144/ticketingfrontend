@@ -48,7 +48,7 @@ class postanswer extends Component{
         console.log(this.props.match.params.id)
         console.log(this.props.location.aboutProps.user)
         const query=this.props.location.aboutProps.query;
-        // const queryID = this.props.match.params.id;
+        const queryID = this.props.match.params.id;
         return(
             <div className="container">
                 <div className="container my-4">
