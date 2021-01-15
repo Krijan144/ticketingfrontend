@@ -70,7 +70,7 @@ class ans_query extends Component {
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey={querylist._id}>
-                <Card.Body>{answers}</Card.Body>
+                <Card.Body>Answer:{answers}</Card.Body>
               </Accordion.Collapse>
             </Card>
           ))}

@@ -23,9 +23,9 @@ class Queryform extends Component {
   }
 
   componentDidMount() {
-    console.log(this.context.uso[0].user.id);
-    const id = this.context.uso[0].user.id;
-    axios.get(`http://localhost:8000/api/query/truequery/${id}`).then((res) => {
+    console.log(this.context.uso[0]?.user.id);
+    const id = this.context.uso[0]?.user.id;
+    axios.get(`http://localhost:8000/api/query/user/${id}`).then((res) => {
       console.log(res.data.data);
       console.log(res.data.data);
       const query = res.data.data;
