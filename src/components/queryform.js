@@ -24,13 +24,16 @@ class Queryform extends Component {
   }
 
   // componentDidMount() {
-  //   axios.get(`http://localhost:8000/api/query`)
+  //   const id = this.context.uso[0].user.id
+  //   console.log(id);
+
+  //   axios.get(`http://localhost:8000/api/query/${id}`)
   //     .then(res => {
   //       console.log(res);
-  //       // const query = res.data.data
-  //       // this.setState(
-  //       //   { query1: query }
-  //       // )
+  //       const query = res.data.data
+  //       this.setState(
+  //         { query1: query }
+  //       )
   //     }
   //     )
   // }

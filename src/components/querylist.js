@@ -16,7 +16,6 @@ class querylist extends Component {
     }
 
     componentDidMount() {
-        console.log(this.context.uso[0].user.id)
         const id = this.context.uso[0].user.id
         const token = this.context.uso[0].token
         axios.get(`http://localhost:8000/api/query/${id}`,
@@ -26,7 +25,6 @@ class querylist extends Component {
                 }
             })
             .then(res => {
-                console.log(res);
                 const query = res.data.data
                 this.setState(
                     { query }

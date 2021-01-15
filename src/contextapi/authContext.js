@@ -1,23 +1,23 @@
-import React, { useState, useEffect, createContext } from 'react';
-import Axios from "axios"
-
-import App from '../App';
+import React, { useState, createContext } from 'react';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 
-    const [isAutheticated, setIsAutheticated] = useState(false);
+    // const [isAutheticated, setIsAutheticated] = useState(false);
     const [user, setUser] = useState(
         {
             token: localStorage.getItem("token"),
             user: JSON.parse(localStorage.getItem("user"))
         }
     );
+    const [isLoggedin, setIsLoggedin] = useState(user.token !== null)
+    // console.log(isLoggedin, "=====> status");
+
 
     return (
         <AuthContext.Provider value={
-            { auth: [isAutheticated, setIsAutheticated], uso: [user, setUser] }
+            { uso: [user, setUser], login: [isLoggedin, setIsLoggedin] }
         } >
             {children}
         </AuthContext.Provider>

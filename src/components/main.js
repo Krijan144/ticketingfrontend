@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../contextapi/authContext';
 
-class home extends Component {
-    render() {
-        return (
-            <div className="container mt-5 text-center">
-                <h1>WELCOME</h1>
-            </div>
-        )
-    }
+
+const Home = () => {
+    const [user, setUser] = useContext(AuthContext).uso;
+    return (
+        <div className="container mt-5 text-center">
+            <h1 >WELCOME</h1>
+            <h5>{user.user?.email}</h5>
+        </div>
+    )
 }
-export default home;
+export default Home;
+

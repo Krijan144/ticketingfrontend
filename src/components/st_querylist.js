@@ -22,7 +22,6 @@ class st_querylist extends Component {
     }
     handleClick(event) {
         console.log("Clicked");
-
     }
     render() {
         return (
