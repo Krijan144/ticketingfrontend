@@ -17,7 +17,7 @@ class Queryform extends Component {
       submitted: false,
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    //this.handleChange = this.handleChange.bind(this);
     //this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -62,8 +62,8 @@ class Queryform extends Component {
         this.setState({
           submitted: true,
         });
-        this.setState((prev) => ({
-          formData: { ...prev.formData, query: "", ellaborate: "" },
+        this.setState((p) => ({
+          formData: { ...p.formData, query: "", ellaborate: "" },
         }));
         console.log(response);
       })
@@ -85,23 +85,24 @@ class Queryform extends Component {
           )}
           <h3>SUBMIT YOUR QUERIES</h3>
           <Form.Group controlId="exampleForm.ControlSelect1">
-            <Form.Label>Select Query</Form.Label>
+            <Form.Label>Select Type</Form.Label>
             <Form.Control
               as="select"
-              value={this.state.formData.query}
-              onChange={(event) =>
-                this.setState((prev) => ({
-                  formData: { ...prev.formData, query: event.target.value },
-                }))
-              }
+              // value={this.state.formData.query}
+              // onChange={(event) =>
+              //   this.setState((p) => ({
+              //     formData: { ...p.formData, query: event.target.value },
+              //   }))
+              
             >
-              {this.state.query1.map((querylist) => {
+              {/* {this.state.query1.map((querylist) => {
                 return (
                   <option id={querylist.id} value={querylist.value}>
                     {querylist.query}
                   </option>
                 );
-              })}
+              })} */}
+              <option></option>
             </Form.Control>
           </Form.Group>
           <Form.Group controlId="exampleForm.ControlInput1">

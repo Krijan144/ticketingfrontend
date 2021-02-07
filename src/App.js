@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
-import Routes from './routes'
-import { AuthProvider } from './contextapi/authContext';
+import React, { useState } from "react";
+import Routes from "./routes";
+import { AuthProvider } from "./contextapi/authContext";
 
 const App = () => {
-
   return (
     <AuthProvider>
       <Routes />
-    </AuthProvider >
+    </AuthProvider>
   );
-}
+};
 
 export default App;
-
