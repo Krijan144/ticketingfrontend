@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { AuthContext } from "../contextapi/authContext"
-import { useHistory, Link } from 'react-router-dom';
-import { Navbar, NavDropdown, Form, FormControl, Nav, Button } from 'react-bootstrap';
-
-
+import { Link } from 'react-router-dom';
 
 class getanswer extends Component {
   static contextType = AuthContext
@@ -32,8 +29,12 @@ class getanswer extends Component {
   render() {
 
     const { answers } = this.state;
+    const query = this.props.location.aboutProps.query
     return (
+
       <div className="container mt-5">
+        <b>Query:</b>{query}
+        <br />
         <ul className="listgroup">
           {!this.state.answers ?
             <h3>Yet to be answered</h3>
@@ -54,7 +55,10 @@ class getanswer extends Component {
                 )}    <h1>hello</h1>
                 
                 */}
+
+
         </ul>
+
       </div>
     )
   }

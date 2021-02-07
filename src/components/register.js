@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { AuthContext } from '../contextapi/authContext'
+import './css/register.css'
 
 class register extends Component {
     constructor(props) {
@@ -57,29 +58,11 @@ class register extends Component {
 
     }
 
-    //email, password, passwordCheck, fullname 
-
     render() {
         return (
             <div className="container">
-                {/* <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Email:<br />
-                        <input type="text" name="email" value={this.state.email} onChange={this.handleChange} /><br />
-                    Username:<br />
-                        <input type="text" name="fullname" value={this.state.fullname} onChange={this.handleChange} /><br />
 
-                    Password:<br />
-                        <input type="text" name="password" value={this.state.password} onChange={this.handleChange} /><br />
-                    Confirm Password:<br />
-                        <input type="text" name="passwordCheck" value={this.state.passwordCheck} onChange={this.handleChange} /><br />
-                    </label><br />
-                    <input type="submit" value="REGISTER" className="btn-primary" />
-                </form> */}
-
-
-                <div className="col-lg-5 col-md-5  offset-md-4 my-5">
-
+                <div className="col-lg-5 col-md-5  offset-md-4 my-5 register">
 
                     {this.state.show ? <Alert variant='danger'>
                         {this.state.error}
@@ -117,9 +100,8 @@ class register extends Component {
                                 <option value="admin">admin</option>
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group controlId="formBasicCheckbox">
-                            <Form.Check type="checkbox" label="Remember me" />
-                        </Form.Group>
+                        <Link to="/login" style={{ fontSize: "12px" }}>Already have an account ? Login</Link> <br /> <br />
+
                         <Button variant="primary" type="submit">Register</Button>
 
                     </Form>

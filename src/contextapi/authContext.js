@@ -4,14 +4,18 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 
-    // const [isAutheticated, setIsAutheticated] = useState(false);
+
     const [user, setUser] = useState(
         {
             token: localStorage.getItem("token"),
             user: JSON.parse(localStorage.getItem("user"))
         }
     );
-    const [isLoggedin, setIsLoggedin] = useState(user.token !== null)
+
+    const [isLoggedin, setIsLoggedin] = useState(localStorage.getItem("token") !== null)
+    // const [isAdmin, setIsAdmin] = useState(user.user?.role === 'admin')
+    // console.log(isAdmin);
+
 
     return (
         <AuthContext.Provider value={
