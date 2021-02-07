@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import querylist from "./querylist";
 import { AuthContext } from "../contextapi/authContext";
 import { Form, Button, Alert } from "react-bootstrap";
+import './css/askQuery.css'
 
 class Queryform extends Component {
   static contextType = AuthContext;
@@ -23,11 +23,8 @@ class Queryform extends Component {
   }
 
   componentDidMount() {
-    console.log(this.context.uso[0]?.user.id);
     const id = this.context.uso[0]?.user.id;
     axios.get(`http://localhost:8000/api/query/user/${id}`).then((res) => {
-      console.log(res.data.data);
-      console.log(res.data.data);
       const query = res.data.data;
       this.setState({ query1: query });
     });
@@ -76,14 +73,14 @@ class Queryform extends Component {
     //const {name} = this.context;
     //console.log(name)
     return (
-      <div className="container p-5 col-5 offset-md-4">
-        <Form onSubmit={this.handleSubmit}>
+      <div className="container p-5 col-lg-5 col-md-5 offset-md-4 askQuery mt-5">
+        <Form onSubmit={this.handleSubmit} >
           {this.state.submitted && (
             <Alert variant="success">
               Success! Your problem will be noticed fast.
             </Alert>
           )}
-          <h3>SUBMIT YOUR QUERIES</h3>
+          <h3 className="my-3 text-center">SUBMIT YOUR QUERIES</h3>
           <Form.Group controlId="exampleForm.ControlSelect1">
             <Form.Label>Select Type</Form.Label>
             <Form.Control
@@ -126,11 +123,11 @@ class Queryform extends Component {
               onChange={this.handleChange}
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button type="submit">
             Submit
           </Button>
         </Form>
-      </div>
+      </div >
     );
   }
 }

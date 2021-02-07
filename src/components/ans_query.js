@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { ListGroup } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { AuthContext } from "../contextapi/authContext";
-import { Tab, Col, Row, Nav, Accordion, Card, Button } from "react-bootstrap";
+import { Accordion, Card, Button } from "react-bootstrap";
 
 class ans_query extends Component {
   static contextType = AuthContext;
@@ -50,9 +48,9 @@ class ans_query extends Component {
     const answers = this.state.answers;
     console.log(this.data);
     return (
-      <div className="container p-3 my-4">
-        <h5>
-          <b>Your Answers</b>
+      <div className="container p-3 my-4 mt-5">
+        <h5 style={{ fontSize: "2rem", fontWeight: "900", color: "white", textAlign: "center" }} className="my-5" >
+          Your Answers
         </h5>
         <br />
         <Accordion defaultActiveKey="0">
@@ -75,7 +73,7 @@ class ans_query extends Component {
             </Card>
           ))}
         </Accordion>
-      </div>
+      </div >
     );
   }
 }

@@ -1,0 +1,18 @@
+.askQuery{
+    background-color: aliceblue;
+    padding:3rem;
+    border-radius: 15px;
+}
+
+.askQuery h3{
+    font-size: 2rem;
+    font-weight: 900;
+    color: #13859e;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .login {
+      padding: 1rem;
+    }
+  }

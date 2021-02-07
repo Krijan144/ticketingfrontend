@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { AuthContext } from "../contextapi/authContext"
-import { useHistory, Link } from 'react-router-dom';
-import { Navbar, NavDropdown, Form, FormControl, Nav, Button } from 'react-bootstrap';
-
-
+import { Link } from 'react-router-dom';
 
 class getanswer extends Component {
   static contextType = AuthContext
@@ -36,8 +33,8 @@ class getanswer extends Component {
     return (
 
       <div className="container mt-5">
-      <b>Query:</b>{query}
-        <br/>
+        <b>Query:</b>{query}
+        <br />
         <ul className="listgroup">
           {!this.state.answers ?
             <h3>Yet to be answered</h3>

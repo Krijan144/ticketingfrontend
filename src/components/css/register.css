@@ -1,0 +1,17 @@
+.register{
+    background-color: aliceblue;
+    padding: 2rem 3rem 3rem 3rem;
+    border-radius: 15px;
+}
+
+.register h3{
+    font-size: 2rem;
+    font-weight: 900;
+    color: #13859e;
+}
+
+@media only screen and (max-width: 600px) {
+    .login {
+      padding: 1rem;
+    }
+  }

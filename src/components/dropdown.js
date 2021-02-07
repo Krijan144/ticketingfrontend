@@ -1,38 +1,36 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
-import {} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { } from 'react-bootstrap';
 
-class dropdown extends Component{
-    constructor(props){
+class dropdown extends Component {
+    constructor(props) {
         super(props);
-        this.state ={
-            query:[],
+        this.state = {
+            query: [],
         };
-      //  this.state={
-            
-      //  },
+        //  this.state={
+
+        //  },
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit1 = this.handleSubmit1.bind(this);
     }
-    
-    componentDidMount(){
+
+    componentDidMount() {
         axios.get(`http://127.0.0.1:8000/getquery`)
-        .then(res=>
-            {
+            .then(res => {
                 console.log(res);
                 const query = res.data
                 this.setState(
-                    {query}
+                    { query }
                 )
             }
             )
     }
-    handleChange(event){
+    handleChange(event) {
         console.log("clicked");
-       console.log(this.props.match.params.id)
+        console.log(this.props.match.params.id)
     }
-    handleSubmit1(event){
+    handleSubmit1(event) {
         console.log("clicked");
     }
     // handleClick(id){
@@ -42,18 +40,18 @@ class dropdown extends Component{
     //     }
     //     />
     // }
-    render(){
-        return(
-        <div className="container p-3">
-            <label>
-            <select onClick={this.handleChange} >
-                {this.state.query.map(querylist => <option >{querylist.query}</option>)}
-            </select>
-            <br />
-            <div className="container p-1">
-            <input type="submit" value="Submit" className="btn-primary" onClick={this.handleSubmit1} />
-            </div >
-            </label> 
+    render() {
+        return (
+            <div className="container p-3">
+                <label>
+                    <select onClick={this.handleChange} >
+                        {this.state.query.map(querylist => <option >{querylist.query}</option>)}
+                    </select>
+                    <br />
+                    <div className="container p-1">
+                        <input type="submit" value="Submit" className="btn-primary" onClick={this.handleSubmit1} />
+                    </div >
+                </label>
             </div>
         )
     }
