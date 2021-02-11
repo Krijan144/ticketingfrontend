@@ -5,25 +5,33 @@ import { AuthContext } from "../contextapi/authContext";
 import { useHistory, Link } from "react-router-dom";
 import "./css/login.css";
 
-const Login = (props) => {
+const St_login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [show, setShow] = useState(false);
+  const [q_role, setQRole] = useState([]);
+  const [role, setRole] = useState();
   const [submitted, setSubmitted] = useState(false);
   const [isLoggedin, setIsLoggedin] = useContext(AuthContext).login;
   // const [isAdmin, setIsAdmin] = useContext(AuthContext).is_admin;
 
   const [user, setUser] = useContext(AuthContext).uso;
   let history = useHistory();
+  useEffect(() => {
+    axios.get(`http://localhost:8000/api/query/q_role`).then((res) => {
+      console.log(res.data, "ok");
+      setQRole(res.data);
+    });
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     axios({
-      url: "http://localhost:8000/users/login/",
+      url: "http://localhost:8000/users/st_login/",
       method: "POST",
-      data: { email, password },
+      data: { email, password, role },
       headers: {
         "Content-Type": "application/json",
       },
@@ -59,7 +67,7 @@ const Login = (props) => {
           <Alert variant="success">Success! You are logged in.</Alert>
         )}
 
-        <h3 className="text-center my-5">LOGIN</h3>
+        <h3 className="text-center my-5">STAFF LOGIN</h3>
 
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicEmail">
@@ -85,17 +93,25 @@ const Login = (props) => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
+          <Form.Group controlId="exampleForm.ControlSelect1">
+            <Form.Label>Select Type</Form.Label>
+            <Form.Control
+              as="select"
+              name="q_type"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            >
+              {/* <option selected>Open this select type</option> */}
+              {q_role.map((list) => {
+                return <option id={list.id}>{list.role}</option>;
+              })}
+              {/* <option></option> */}
+            </Form.Control>
+          </Form.Group>
           {/* <Form.Group controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="Remember me" />
                     </Form.Group> */}
-          <Link to="/register" style={{ fontSize: "12px" }}>
-            Don't have an account ? Register
-          </Link>{" "}
-          <br />
-          <Link to="/st_login" style={{ fontSize: "12px" }}>
-            Staff Login
-          </Link>{" "}
-          <br /> <br />
+
           <Button variant="primary" type="submit">
             Login
           </Button>
@@ -105,4 +121,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default St_login;
