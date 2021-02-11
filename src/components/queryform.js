@@ -13,6 +13,8 @@ class Queryform extends Component {
       formData: {
         ellaborate: "",
         query: "",
+        show: false,
+        error: ''
       },
       submitted: false,
     };
@@ -23,7 +25,7 @@ class Queryform extends Component {
   }
 
   componentDidMount() {
-    const id = this.context.uso[0]?.user.id;
+    const id = this.context.uso[0].id;
     axios.get(`http://localhost:8000/api/query/user/${id}`).then((res) => {
       const query = res.data.data;
       this.setState({ query1: query });
@@ -37,15 +39,14 @@ class Queryform extends Component {
         [event.target.getAttribute("name")]: event.target.value,
       },
     }));
-    console.log(this.context.uso[0].user);
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.context.uso[0].user.id);
-    const id = this.context.uso[0]?.user.id;
-    const token = this.context.uso[0].token;
-    console.log(this.state);
+    console.log(this.context.uso[0].id);
+    const id = this.context.uso[0]?.id;
+    const token = this.context.token[0];
+    console.log(token);
     axios({
       url: `http://localhost:8000/api/query/${id}`,
       method: "POST",
@@ -65,7 +66,11 @@ class Queryform extends Component {
         console.log(response);
       })
       .catch((err) => {
-        console.log(err);
+        this.setState({
+          show: true,
+          error: err.response.data.msg
+        })
+        console.log(err.response, "hello error");
       });
   }
 
@@ -73,59 +78,63 @@ class Queryform extends Component {
     //const {name} = this.context;
     //console.log(name)
     return (
-      <div className="container p-5 col-lg-5 col-md-5 offset-md-4 askQuery mt-5">
-        <Form onSubmit={this.handleSubmit} >
-          {this.state.submitted && (
-            <Alert variant="success">
-              Success! Your problem will be noticed fast.
-            </Alert>
-          )}
-          <h3 className="my-3 text-center">SUBMIT YOUR QUERIES</h3>
-          <Form.Group controlId="exampleForm.ControlSelect1">
-            <Form.Label>Select Query</Form.Label>
-            <Form.Control
-              as="select"
-              value={this.state.formData.query}
-              onChange={(event) =>
-                this.setState((prev) => ({
-                  formData: { ...prev.formData, query: event.target.value },
-                }))
-              }
-            >
-              {this.state.query1.map((querylist) => {
-                return (
-                  <option id={querylist.id} value={querylist.value}>
-                    {querylist.query}
-                  </option>
-                );
-              })}
-            </Form.Control>
-          </Form.Group>
-          <Form.Group controlId="exampleForm.ControlInput1">
-            <Form.Label>Query</Form.Label>
-            <Form.Control
-              type="text"
-              name="query"
-              value={this.state.formData.query}
-              onChange={this.handleChange}
-            />
-          </Form.Group>
+      <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+        <h1 className="text-center">{this.state.error}</h1>
 
-          <Form.Group controlId="exampleForm.ControlTextarea1">
-            <Form.Label>Ellaborate</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              value={this.state.formData.ellaborate}
-              rows="5"
-              name="ellaborate"
-              onChange={this.handleChange}
-            />
-          </Form.Group>
-          <Button type="submit">
-            Submit
+        <div className="container col-lg-6 col-md-6 offset-md-3 askQuery">
+          <Form onSubmit={this.handleSubmit} >
+            {this.state.submitted && (
+              <Alert variant="success">
+                Success! Your problem will be noticed fast.
+              </Alert>
+            )}
+            <h3 className="my-3 text-center">SUBMIT YOUR QUERIES</h3>
+            <Form.Group controlId="exampleForm.ControlSelect1">
+              <Form.Label>Select Query</Form.Label>
+              <Form.Control
+                as="select"
+                value={this.state.formData.query}
+                onChange={(event) =>
+                  this.setState((prev) => ({
+                    formData: { ...prev.formData, query: event.target.value },
+                  }))
+                }
+              >
+                {this.state.query1.map((querylist) => {
+                  return (
+                    <option id={querylist.id} value={querylist.value}>
+                      {querylist.query}
+                    </option>
+                  );
+                })}
+              </Form.Control>
+            </Form.Group>
+            <Form.Group controlId="exampleForm.ControlInput1">
+              <Form.Label>Query</Form.Label>
+              <Form.Control
+                type="text"
+                name="query"
+                value={this.state.formData.query}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="exampleForm.ControlTextarea1">
+              <Form.Label>Ellaborate</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                value={this.state.formData.ellaborate}
+                rows="5"
+                name="ellaborate"
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+            <Button type="submit">
+              Submit
           </Button>
-        </Form>
+          </Form>
+        </div >
       </div >
     );
   }

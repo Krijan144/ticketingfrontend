@@ -19,7 +19,7 @@ class st_querylist extends Component {
     }
 
     componentDidMount() {
-        const token = this.context.uso[0].token;
+        const token = this.context.token[0];
 
         axios.get("http://localhost:8000/api/query/false", {
             headers: {
@@ -40,8 +40,7 @@ class st_querylist extends Component {
     }
 
     handleClick = (e) => {
-        //console.log(res.data.data[0]._id);
-        // axios.get()
+
         console.log(e);
         axios.get(`http://localhost:8000/api/query/${e}`).then((res) => {
             console.log(res);
@@ -49,21 +48,7 @@ class st_querylist extends Component {
             this.setState({ ellaborate: res.data.data[0]?.ellaborate });
         });
     };
-    // handleClick2 =(e)=>{
-    //     console.log(e);
-    //     const ed = e._id
-    //     const qu = e.query
-    //     return(
-    //         <Link style={{ textDecoration: "none", color: 'red' }} to ={{
-    //             pathname:`/postanswer/${ed}`,
-    //             aboutProps:{
-    //                 query:`${qu}`
-    //             }
-    //         }}/>
 
-    //     )
-    //     //window.location.href =`/postanswer/${e._id}`
-    // }
     render() {
         const ellaborate = this.state.ellaborate;
         return (
@@ -71,29 +56,9 @@ class st_querylist extends Component {
 
                 <h1 className="text-center">{this.state.error}</h1>
 
-                <h2>TECHRIDA SOLUTION</h2>
-
-
+                <h2 className="text-white text-center mt-5">TECHRIDA SOLUTION</h2>
 
                 <div className="container p-4">
-                    {/* <ul className="list-group" >
-                        {this.state.st_query.map(querylist =>
-                            <li className="list-group-item"  >
-                                {/* <Link to={`/postanswer/${querylist._id}`} style={{ textDecoration: "none", color: 'red' }} aboutProps={{user:"abc"}}>
-                                    {querylist.query}
-                                </Link> */}
-                    {/* <Link style={{ textDecoration: "none", color: 'red' }} to ={{
-                                    pathname:`/postanswer/${querylist._id}`,
-                                    aboutProps:{
-                                        query:`${querylist.query}`
-                                    }
-                                }}>
-                                    {querylist.query}
-                                </Link>
-                                <button style={{ float: 'right' }} className="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">See More</button>
-
-                            </li>)}
-                    </ul> */}
                     <Accordion defaultActiveKey="0">
                         {this.state.st_query.map((querylist) => (
                             <Card>

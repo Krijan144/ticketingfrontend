@@ -11,10 +11,10 @@ const st_button = () => {
     return (
         <div className="container p-5">
             <div className="text-center my-3">
-                <h2>Controller</h2>
+                <h2 className="text-white">Controller</h2>
             </div>
             <div className="text-center my-5">
-                <Button variant="success" onClick={handleButton1}>Answered Query</Button>{'  '}
+                <Button variant="success" onClick={handleButton1}>Answered Query</Button>
                 <Button variant="danger" onClick={handleButton2}>To be answered</Button>
             </div>
         </div>

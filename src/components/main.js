@@ -4,7 +4,7 @@ import { AuthContext } from '../contextapi/authContext';
 
 const Home = () => {
 
-    const [user, setUser] = useContext(AuthContext).uso;
+    // const [user, setUser] = useContext(AuthContext).uso;
 
     return (
         <div className="container mt-5 text-center welcome" >

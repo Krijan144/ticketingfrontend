@@ -16,9 +16,9 @@ class ans_query extends Component {
   }
 
   componentDidMount() {
-    console.log(this.context.uso[0].user.id);
-    const id = this.context.uso[0].user.id;
-    const token = this.context.uso[0].token;
+    console.log(this.context.uso[0].id);
+    const id = this.context.uso[0].id;
+    const token = this.context.token[0];
     axios
       .get(`http://localhost:8000/api/query/truequery/${id}`, {
         headers: {

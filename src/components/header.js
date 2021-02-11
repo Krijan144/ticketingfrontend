@@ -11,8 +11,7 @@ import { AuthContext } from "../contextapi/authContext";
 const Nav1 = () => {
     // const [isAutheticated, setIsAutheticated] = useContext(AuthContext).auth;\
     const [isLoggedin, setIsLoggedin] = useContext(AuthContext).login;
-
-
+    const [isAdmin, setIsAdmin] = useContext(AuthContext).isAdmin;
     const handleOut = () => {
         localStorage.clear();
         // history.push("/login");
@@ -28,10 +27,19 @@ const Nav1 = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
-                        <Nav.Link as={Link} to="/" className="mr-5">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/queryform" className="mr-5">SubmitQuery</Nav.Link>
-                        <Nav.Link as={Link} to="/button" className="mr-5">QueryList</Nav.Link>
-
+                        {JSON.parse(localStorage.getItem("user"))?.role === 'admin' ?
+                            <>
+                                <Nav.Link as={Link} to="/st_button" className="mr-5">Answer Queries</Nav.Link>
+                                {/* <Nav.Link as={Link} to="/queryform" className="mr-5">SubmitQuery</Nav.Link>
+                                <Nav.Link as={Link} to="/button" className="mr-5">QueryList</Nav.Link> */}
+                            </>
+                            :
+                            <>
+                                <Nav.Link as={Link} to="/" className="mr-5">Home</Nav.Link>
+                                <Nav.Link as={Link} to="/queryform" className="mr-5">SubmitQuery</Nav.Link>
+                                <Nav.Link as={Link} to="/button" className="mr-5">QueryList</Nav.Link>
+                            </>
+                        }
                         {isLoggedin ? (
                             <Nav.Link href="/" onClick={handleOut}>
                                 Logout

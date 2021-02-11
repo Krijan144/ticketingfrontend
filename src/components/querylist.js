@@ -16,9 +16,9 @@ class querylist extends Component {
     }
 
     componentDidMount() {
-        console.log(this.context.uso[0].user.id);
-        const id = this.context.uso[0].user.id;
-        const token = this.context.uso[0].token;
+        console.log(this.context.uso[0].id);
+        const id = this.context.uso[0].id;
+        const token = this.context.token[0];
         axios
             .get(`http://localhost:8000/api/query/falsequery/${id}`, {
                 headers: {
@@ -43,30 +43,32 @@ class querylist extends Component {
     render() {
         const ellaborate = this.state.ellaborate;
         return (
-            <div className="container p-3 my-4 mt-5">
-                <Accordion defaultActiveKey="0" className="p-4">
-                    <h2 style={{ fontSize: "2rem", fontWeight: "900", color: "white", textAlign: "center" }} className="my-5">Following Queries are yet to be answered</h2>
-                    <br />
-                    {this.state.query.map((querylist) => (
-                        <Card>
-                            <Card.Header>
-                                <Accordion.Toggle
-                                    as={Button}
-                                    onClick={() => this.handleClick(querylist._id)}
-                                    variant="link"
-                                    color="green"
-                                    eventKey={querylist._id}
-                                    className="text-decoration-none "
-                                >
-                                    {querylist.query}
-                                </Accordion.Toggle>
-                            </Card.Header>
-                            <Accordion.Collapse eventKey={querylist._id}>
-                                <Card.Body>Ellaborate::{ellaborate}</Card.Body>
-                            </Accordion.Collapse>
-                        </Card>
-                    ))}
-                </Accordion>
+            <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+                <div className="container p-3 my-4 mt-5">
+                    <Accordion defaultActiveKey="0" className="p-4">
+                        <h2 style={{ fontSize: "2rem", fontWeight: "900", color: "white", textAlign: "center" }} className="my-5">Following Queries are yet to be answered</h2>
+                        <br />
+                        {this.state.query.map((querylist) => (
+                            <Card>
+                                <Card.Header>
+                                    <Accordion.Toggle
+                                        as={Button}
+                                        onClick={() => this.handleClick(querylist._id)}
+                                        variant="link"
+                                        color="green"
+                                        eventKey={querylist._id}
+                                        className="text-decoration-none "
+                                    >
+                                        {querylist.query}
+                                    </Accordion.Toggle>
+                                </Card.Header>
+                                <Accordion.Collapse eventKey={querylist._id}>
+                                    <Card.Body>Ellaborate::{ellaborate}</Card.Body>
+                                </Accordion.Collapse>
+                            </Card>
+                        ))}
+                    </Accordion>
+                </div>
             </div>
         );
     }
