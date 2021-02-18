@@ -1,60 +1,38 @@
 import React from "react";
-import { Table, Input, Button, Space, Popconfirm, PageHeader } from "antd";
+import {
+  Table,
+  Input,
+  Button,
+  Space,
+  Popconfirm,
+  PageHeader,
+  Tag,
+  Modal,
+} from "antd";
 import Highlighter from "react-highlight-words";
-import { SearchOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  SearchOutlined,
+  DeleteOutlined,
+  DeleteFilled,
+} from "@ant-design/icons";
 import axios from "axios";
 
-// const data = [
-//   {
-//     key: "1",
-//     name: "John Brown",
-//     age: 32,
-//     address: "New York No. 1 Lake Park",
-//   },
-//   {
-//     key: "2",
-//     name: "Joe Black",
-//     age: 42,
-//     address: "London No. 1 Lake Park",
-//   },
-//   {
-//     key: "3",
-//     name: "Jim Green",
-//     age: 32,
-//     address: "Sidney No. 1 Lake Park",
-//   },
-//   {
-//     key: "4",
-//     name: "Jim Red",
-//     age: 32,
-//     address: "London No. 2 Lake Park",
-//   },
-// ];
-
-class antstaff extends React.Component {
+class antticket extends React.Component {
   state = {
     searchText: "",
     searchedColumn: "",
     data: [],
-    refresh: false,
+    visible: false,
+    detail: {},
   };
   componentDidMount() {
-    axios.get("http://localhost:8000/users/st_user").then((res) => {
+    axios.get("http://localhost:8000/api/query/").then((res) => {
       console.log(res.data);
-      this.setState({ data: res.data });
+      this.setState({ data: res.data.data });
       //   const ansd_query = res.data.data;
       //   this.setState({ ansd_query });
     });
   }
-  // componentDidUpdate(refresh) {
-  //   axios.get("http://localhost:8000/users/st_user").then((res) => {
-  //     console.log(res.data);
-  //     this.setState({ data: res.data });
-  //     this.setState({ refresh: false });
-  //     //   const ansd_query = res.data.data;
-  //     //   this.setState({ ansd_query });
-  //   });
-  // }
 
   getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
@@ -151,46 +129,49 @@ class antstaff extends React.Component {
     clearFilters();
     this.setState({ searchText: "" });
   };
+  handleTableChange = (filters) => {
+    console.log(filters);
+  };
   handleDelete = (e) => {
     console.log(e);
     axios({
-      url: "http://localhost:8000/users/st_user",
+      url: "http://localhost:8000/api/query/delquery",
       method: "DELETE",
       data: {
-        id: e,
+        id: `${e}`,
       },
-    }).then(this.setState({ refresh: true }));
+    }).then((res) => {
+      console.log("deleted");
+    });
   };
 
   render() {
+    console.log(this.state.detail);
     const columns = [
       {
-        title: "Email",
-        dataIndex: "email",
-        key: "email",
-        width: "30%",
-        ...this.getColumnSearchProps("email"),
+        title: "Query",
+        dataIndex: "query",
+        key: "query",
+        width: "50%",
+        ...this.getColumnSearchProps("query"),
       },
       {
-        title: "Username",
-        dataIndex: "fullname",
-        key: "fullname",
+        title: "Answer Status",
+        dataIndex: "is_answered",
+        key: "is_answered",
         width: "20%",
-        ...this.getColumnSearchProps("fullname"),
-      },
-      {
-        title: "Role",
-        dataIndex: "role",
-        key: "role",
-        width: "20%",
-        ...this.getColumnSearchProps("role"),
+        filters: [
+          { text: "True", value: "true" },
+          { text: "False", value: "false" },
+        ],
+        onFilter: (value, record) => record.is_answered.indexOf(value) === 0,
+
+        // ...this.getColumnSearchProps("is_answered"),
       },
       {
         title: "Action",
         key: "action",
-        dataIndex: "_id",
         width: "20%",
-
         render: (text, record) => (
           <Space size="middle">
             <Popconfirm
@@ -201,8 +182,17 @@ class antstaff extends React.Component {
                 this.handleDelete(record._id);
               }}
             >
-              <DeleteOutlined />
+              <DeleteOutlined style={{ color: "#8b0000" }} />
             </Popconfirm>
+            <Tag
+              onClick={() => {
+                console.log(record);
+                this.setState({ visible: true });
+                this.setState({ detail: record });
+              }}
+            >
+              Detail
+            </Tag>
           </Space>
         ),
       },
@@ -212,12 +202,48 @@ class antstaff extends React.Component {
         <PageHeader
           className="site-page-header"
           onBack={() => window.history.back()}
-          title="All Agents"
+          title="Tickets"
         />
-        <Table columns={columns} dataSource={this.state.data} />
+        <Table
+          columns={columns}
+          // expandable={{
+          //   expandedRowRender: (record) => (
+          //     <p style={{ margin: 0 }}>{record.ellaborate}</p>
+          //   ),
+          // }}
+          dataSource={this.state.data}
+          onChange={this.handleTableChange}
+        />
+        <Modal
+          title="Details"
+          centered
+          visible={this.state.visible}
+          onOk={() => this.setState({ visible: false })}
+          onCancel={() => this.setState({ visible: false })}
+          width={1000}
+          footer={[]}
+        >
+          <p>
+            <b>Query: </b>
+
+            {this.state.detail.query}
+          </p>
+
+          <p>
+            <b>Desciption:</b>
+            <br />
+            {this.state.detail.ellaborate}
+          </p>
+          <p>
+            <b>Asked by:</b>
+          </p>
+          <p>
+            <b>Answered by:</b>
+          </p>
+        </Modal>
       </div>
     );
     //dataSource = { data };
   }
 }
-export default antstaff;
+export default antticket;

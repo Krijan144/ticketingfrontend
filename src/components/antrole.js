@@ -13,7 +13,7 @@ const Antrole = () => {
   const [state, setState] = useState({ visible: false, childrenDrawer: false });
   const [qrole, setRole] = useState([]);
   const [role, setRoles] = useState([]);
-
+  const [refresh, setRefresh] = useState(false);
   const showDrawer = () => {
     setState({
       visible: true,
@@ -26,16 +26,15 @@ const Antrole = () => {
     });
   };
   const onFinish = (e) => {
-    console.log(role);
-
+    console.log(e.users);
     axios({
       url: "http://localhost:8000/api/query/q_role/",
       method: "POST",
-      data: { role },
+      data: e.users,
       headers: {
         "Content-Type": "application/json",
       },
-    });
+    }).then(setRefresh(true));
   };
   const handleDelete = (e) => {
     console.log(e, "delete");
@@ -45,14 +44,17 @@ const Antrole = () => {
       data: {
         role: e,
       },
-    });
+    }).then(setRefresh(true));
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/query/q_role`).then((res) => {
-      setRole(res.data);
-    });
-  }, []);
+    axios
+      .get(`http://localhost:8000/api/query/q_role`)
+      .then((res) => {
+        setRole(res.data);
+      })
+      .then(setRefresh(false));
+  }, [refresh]);
   return (
     <div>
       <Button type="primary" onClick={showDrawer} style={{ height: "60px" }}>
@@ -99,12 +101,13 @@ const Antrole = () => {
                   >
                     <Form.Item
                       {...field}
-                      name={[field.name, "last"]}
-                      fieldKey={[field.fieldKey, "last"]}
-                      onChange={(e) => {
-                        console.log(e.target.value);
-                        setRoles(e.target.value);
-                      }}
+                      name={[field.name, "role"]}
+                      fieldKey={[field.fieldKey, "role"]}
+
+                      // onChange={(e) => {
+                      //   console.log(e.target.value);
+                      //   setRoles(e.target.value);
+                      // }}
 
                       // rules={[{ required: true, message: "Missing last name" }]}
                     >

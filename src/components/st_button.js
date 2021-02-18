@@ -4,8 +4,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Doughnut, Bar, Line } from "react-chartjs-2";
 import { Drawer, Form, Button, Col, Row, Input, Select, Alert } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, TeamOutlined, FormOutlined } from "@ant-design/icons";
 import Antrole from "./antrole";
+
 import "antd/dist/antd.css";
 const { Option } = Select;
 const St_button = () => {
@@ -35,7 +36,6 @@ const St_button = () => {
     axios.get(`http://localhost:8000/api/query`).then((res) => {
       console.log(res);
       setQRole(res.data.data);
-      console.log(res.data.data[49], "data question");
     });
   }, []);
 
@@ -145,10 +145,9 @@ const St_button = () => {
 
       datasets: [
         {
-          label: [dynamic],
-          backgroundColor: ["white", "#36a2eb", "#eb1796", "green"],
+          backgroundColor: ["red", "#36a2eb", "#eb1796", "green"],
 
-          data: [Refunds, Management, Cleanup, Technical],
+          data: [Cleanup, Management, Refunds, Technical],
         },
       ],
     },
@@ -239,6 +238,7 @@ const St_button = () => {
           <div className="col col-lg-2">
             <Antrole />
           </div>
+
           <div className="col col-lg-2">
             <Button
               type="primary"
@@ -247,6 +247,32 @@ const St_button = () => {
             >
               <PlusOutlined theme="outlined" /> New Agent
             </Button>
+          </div>
+        </div>
+        <div className="row justify-content-md-center my-4">
+          <div className="col col-lg-2">
+            <Link to="/antstaff">
+              <Button type="primary" style={{ height: "60px", width: "130px" }}>
+                <TeamOutlined />
+                Agents
+              </Button>
+            </Link>
+          </div>
+          <div className="col col-lg-2">
+            <Link to="/anttickets">
+              <Button type="primary" style={{ height: "60px", width: "130px" }}>
+                <FormOutlined />
+                Tickets
+              </Button>
+            </Link>
+          </div>
+          <div className="col col-lg-2">
+            <Link to="/antcustomer">
+              <Button type="primary" style={{ height: "60px", width: "130px" }}>
+                <TeamOutlined />
+                Customers
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -408,13 +434,13 @@ const St_button = () => {
         {/* Ant design */}
         <br />
         <br />
-        <Button variant="success" onClick={handleButton1}>
+        {/* <Button variant="success" onClick={handleButton1}>
           Answered Query
         </Button>
         {"  "}
         <Button variant="danger" onClick={handleButton2}>
           To be answered
-        </Button>
+        </Button> */}
       </div>
       <div className="text-center my-5">
         {/* <Link to="/st_register">

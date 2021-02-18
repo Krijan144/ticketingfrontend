@@ -19,7 +19,10 @@ import st_register from "./components/st_register";
 import st_role from "./components/st_role";
 import st_query from "./components/st_query";
 import st_login from "./components/st_login";
+import antstaff from "./components/antstaff";
+import antticket from "./components/anttickets";
 import button from "./components/button";
+import antcustomer from "./components/antcustomer";
 
 const Routes = () => {
   const [isLoggedin, setIsLoggedin] = useContext(AuthContext).login;
@@ -75,6 +78,9 @@ const Routes = () => {
       <Route path="/dropdown" exact component={dropdown} />
       <Route path="/register" exact component={register} />
       <Route path="/querylist" exact component={querylist} />
+      <Route path="/antstaff" exact component={antstaff} />
+      <Route path="/antcustomer" exact component={antcustomer} />
+      <Route path="/anttickets" exact component={antticket} />
       <Route path="/ans_query" exact component={ans_query} />
     </BrowserRouter>
   );

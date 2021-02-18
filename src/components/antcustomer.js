@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Input, Button, Space, Popconfirm, PageHeader } from "antd";
 import Highlighter from "react-highlight-words";
 import { SearchOutlined, DeleteOutlined } from "@ant-design/icons";
@@ -31,30 +31,22 @@ import axios from "axios";
 //   },
 // ];
 
-class antstaff extends React.Component {
+class antcustomer extends React.Component {
   state = {
     searchText: "",
     searchedColumn: "",
     data: [],
     refresh: false,
   };
+
   componentDidMount() {
-    axios.get("http://localhost:8000/users/st_user").then((res) => {
+    axios.get("http://localhost:8000/users/user").then((res) => {
       console.log(res.data);
       this.setState({ data: res.data });
       //   const ansd_query = res.data.data;
       //   this.setState({ ansd_query });
     });
   }
-  // componentDidUpdate(refresh) {
-  //   axios.get("http://localhost:8000/users/st_user").then((res) => {
-  //     console.log(res.data);
-  //     this.setState({ data: res.data });
-  //     this.setState({ refresh: false });
-  //     //   const ansd_query = res.data.data;
-  //     //   this.setState({ ansd_query });
-  //   });
-  // }
 
   getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
@@ -153,13 +145,17 @@ class antstaff extends React.Component {
   };
   handleDelete = (e) => {
     console.log(e);
+
     axios({
-      url: "http://localhost:8000/users/st_user",
+      url: "http://localhost:8000/users/deluser",
       method: "DELETE",
       data: {
-        id: e,
+        id: `${e}`,
       },
-    }).then(this.setState({ refresh: true }));
+    }).then(() => {
+      console.log("deleted");
+      this.setState({ refresh: true });
+    });
   };
 
   render() {
@@ -178,13 +174,7 @@ class antstaff extends React.Component {
         width: "20%",
         ...this.getColumnSearchProps("fullname"),
       },
-      {
-        title: "Role",
-        dataIndex: "role",
-        key: "role",
-        width: "20%",
-        ...this.getColumnSearchProps("role"),
-      },
+
       {
         title: "Action",
         key: "action",
@@ -196,8 +186,6 @@ class antstaff extends React.Component {
             <Popconfirm
               title="Are you sure you want to delete?"
               onConfirm={() => {
-                // console.log(record._id);
-
                 this.handleDelete(record._id);
               }}
             >
@@ -212,7 +200,7 @@ class antstaff extends React.Component {
         <PageHeader
           className="site-page-header"
           onBack={() => window.history.back()}
-          title="All Agents"
+          title="All Users"
         />
         <Table columns={columns} dataSource={this.state.data} />
       </div>
@@ -220,4 +208,4 @@ class antstaff extends React.Component {
     //dataSource = { data };
   }
 }
-export default antstaff;
+export default antcustomer;
