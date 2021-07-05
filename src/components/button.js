@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Tabs, Table, Tag, Modal } from "antd";
-import { AppleOutlined, AndroidOutlined } from "@ant-design/icons";
+import { ClockCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { AuthContext } from "../contextapi/authContext";
 const { TabPane } = Tabs;
@@ -32,6 +32,7 @@ const Button = () => {
       width: "20%",
       render: (text, record) => (
         <Tag
+          style={{ cursor: "pointer" }}
           onClick={() => {
             handleClick(record._id);
           }}
@@ -84,7 +85,7 @@ const Button = () => {
         <TabPane
           tab={
             <span>
-              <AppleOutlined />
+              <ClockCircleOutlined />
               Pending
             </span>
           }
@@ -136,7 +137,7 @@ const Button = () => {
         <TabPane
           tab={
             <span>
-              <AndroidOutlined />
+              <CheckCircleOutlined />
               Answered
             </span>
           }
